@@ -15,8 +15,8 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json())
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/posts', postRoute) // plug in the middleware to postRoute (analogy)
 
 
@@ -35,4 +35,4 @@ mongoose
 
 
 // Listen to the server
-app.listen(PORT, () => console.log("Connected to server"));
+app.listen(PORT, () => console.log("Connected to server")); 
