@@ -7,14 +7,15 @@ import Form from "./components/Form/Form";
 import useStyles from "./styles";
 import { getPosts } from "./actions/posts";
 
+// Main component of our app
 function App() {
-  const [currentID, setcurrentID] = useState(null);
+  const [currentID, setcurrentID] = useState(null); // declare the current state in this component
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Call the redux dispatch
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentID, dispatch])
+  }, [currentID, dispatch]) // the getPosts will be dispatched each time the currentID change
 
   return (
     <Container maxWidth="lg">
@@ -28,7 +29,7 @@ function App() {
         <Container>
           <Grid
             container
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="stretch"
             spacing={3}
           >

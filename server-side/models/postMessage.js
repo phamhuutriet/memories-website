@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Schema defines the structure of all objects in our DB
 const postSchema = mongoose.Schema({
   title: String,
   message: String,

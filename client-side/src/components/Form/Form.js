@@ -3,8 +3,10 @@ import useStyles from "./styles";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, updatePost } from "../../actions/posts";
+import { createPost, updatePost, getPosts } from "../../actions/posts";
 
+
+// This is where we want to create new post or update existed posts
 const Form = ({ currentID, setcurrentID }) => {
   const [postData, setPostData] = useState({
     creator: "",
@@ -12,20 +14,22 @@ const Form = ({ currentID, setcurrentID }) => {
     message: "",
     tags: [],
     selectedFile: "",
-  });
+  }); // Declare the current state of this component
+
   const post = useSelector((state) =>
     currentID ? state.posts.find((p) => p._id === currentID) : null
-  );
+  ); // Extract data from redux store. In this component, we only extract the data if we have an ID to perform update action
 
-  const classes = useStyles();
+  const classes = useStyles(); //
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (currentID) {
       dispatch(updatePost(currentID, postData));
     } else {
-      console.log(postData);
-      dispatch(createPost(postData));
+      dispatch(createPost(postData, () => {
+        dispatch(getPosts());
+        }));
     }
     clear();
   };

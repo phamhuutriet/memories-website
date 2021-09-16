@@ -12,9 +12,24 @@ const Post = ({post, setcurrentID}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   dispatch(getPosts());
-  // }, [post, dispatch])
+  const _likePost = () => {
+      dispatch(
+      likePost(post._id, () => {
+        console.log("GetPost callback");
+        dispatch(getPosts());
+      })
+    );
+      // dispatch(likePost(post._id));
+  }
+
+  const _deletePost = () => {
+    dispatch(
+      deletePost(post._id, () => {
+        console.log("Delete callback");
+        dispatch(getPosts());
+      })
+    )
+  }
 
   return (
     <Card className={classes.card}>
@@ -24,7 +39,7 @@ const Post = ({post, setcurrentID}) => {
         <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
       </div>
       <div className={classes.overlay2}>
-        <Button style={{ color: 'white' }} size="small" onClick={() => setcurrentID(post._id)}><MoreHorizIcon fontSize="default" /></Button>
+        <Button style={{ color: 'white' }} size="small" onClick={() => setcurrentID(post._id)}><MoreHorizIcon fontSize="medium" /></Button>
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
@@ -34,8 +49,8 @@ const Post = ({post, setcurrentID}) => {
         <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}><ThumbUpAltIcon fontSize="small" /> &nbsp; Like &nbsp; {post.likeCount} </Button>
-        <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id))}><DeleteIcon fontSize="small" /> Delete</Button>
+        <Button size="small" color="primary" onClick={_likePost}><ThumbUpAltIcon fontSize="small" /> &nbsp; Like &nbsp; {post.likeCount} </Button>
+        <Button size="small" color="primary" onClick={_deletePost}><DeleteIcon fontSize="small" /> Delete</Button>
       </CardActions>
     </Card>
   )
