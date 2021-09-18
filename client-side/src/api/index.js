@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:5001/posts";
+const url = "https://afternoon-plains-17878.herokuapp.com/posts";
 
 // This is where we connect the front end to the back end
 export const fetchPosts = () => axios.get(url); // send the 'get' request to the endpoint
